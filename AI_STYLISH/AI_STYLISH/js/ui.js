@@ -1221,22 +1221,32 @@ class UIManager {
   }
 
   /**
-   * Đăng xuất: Kích hoạt lại hiệu ứng mây che toàn màn hình, xóa dữ liệu session và đưa người dùng quay ngược trở lại Scene 1 (Intro ban đầu).
+   * Đăng xuất, xóa session hiện tại và mở trực tiếp biểu mẫu đăng nhập.
    */
   logoutUser() {
     this.playBeepSound();
-    // 1. Kích hoạt hiệu ứng mây che toàn màn hình quay lại Scene 1
-    this.navigateToScene('scene-1');
 
-    // 2. Xóa dữ liệu session hiện tại
+    // Chọn tab đăng nhập trước khi hiển thị màn hình xác thực.
+    const tabRegister = document.getElementById('tab-auth-register');
+    const tabLogin = document.getElementById('tab-auth-login');
+    const formRegister = document.getElementById('form-auth-register');
+    const formLogin = document.getElementById('form-auth-login');
+    const cardTitle = document.getElementById('auth-card-title');
+    const cardSub = document.getElementById('auth-card-sub');
+    tabRegister?.classList.remove('active');
+    tabRegister?.setAttribute('aria-selected', 'false');
+    tabLogin?.classList.add('active');
+    tabLogin?.setAttribute('aria-selected', 'true');
+    formRegister?.classList.remove('active');
+    formLogin?.classList.add('active');
+    if (cardTitle) cardTitle.textContent = 'TẤM VÀO HỘI';
+    if (cardSub) cardSub.textContent = 'Nhập tên và mật khẩu đã ghi danh để bước vào Huyễn Cảnh.';
+
+    // Xóa dữ liệu session hiện tại và chuyển về màn hình đăng nhập.
     this.currentUser = null;
     localStorage.removeItem('vietphuc_current_user');
-
-    // 3. Ẩn pill trên header
     this.updateUserHeaderUI();
-
-    // 4. Khởi động lại kịch bản dẫn truyện Scene 1
-    this.scheduleScene1Intro(false);
+    this.navigateToScene('scene-1-5');
 
     this.showToast('Đã rời khỏi Huyễn Cảnh và đăng xuất thành công.', 'info');
   }
@@ -1908,8 +1918,8 @@ class UIManager {
     const btnRestart = document.getElementById('btn-restart-app');
     if (btnRestart) {
       btnRestart.addEventListener('click', () => {
-        this.resetOutfit();
-        this.navigateToScene('scene-1');
+        localStorage.removeItem('vietphuc_current_user');
+        window.location.reload();
       });
     }
 
@@ -2838,7 +2848,8 @@ class UIManager {
         !wornIds.has(item.id) &&
         item.gender === this.currentGender &&
         !this.currentOutfit[item.category] &&
-        !(this.validator?.validateOutfitAll([...wornIds, item.id]) || []).length);
+        !(this.validator?.validateOutfitAll([...wornIds, item.id]) || []).length &&
+        this.checkOutfitConflicts([...equippedItems, item], this.currentTheme).length === 0);
 
     if (suggestions.length > 0) {
       return `Bản phối hiện tại gồm ${wornNames.join(', ')}. Gợi ý bổ sung ${this.getItemDisplayName(suggestions[0])} để hoàn thiện tổng thể.`;
@@ -2885,8 +2896,6 @@ class UIManager {
     const describe = item => normalize(`${item.id || ''} ${item.name || ''}`);
     const hasAny = (patterns, list = items) =>
       list.some(item => patterns.some(pattern => pattern.test(describe(item))));
-    const hasEra = era =>
-      items.some(item => normalize(`${item.era || ''} ${item.id || ''} ${item.name || ''}`).includes(era));
     const conflicts = [];
     const addConflict = (id, name, dialogue, expression = 'shocked') => {
       conflicts.push({ id, name, title: name, dialogue, expression });
@@ -2903,7 +2912,9 @@ class UIManager {
       );
     }
 
-    if (hasEra('nguyen') && hasEra('thoi_ly')) {
+    const hasLyRegalia = hasAny([/male_ao_linh_thoi_ly/, /male_mu_linh_thoi_ly/, /male_giay_linh_thoi_ly/]);
+    const hasNguyenRoyalRegalia = hasAny([/male_ao_vua_nguyen/, /male_mu_vua_nguyen/, /male_giay_vua_nguyen/]);
+    if (hasLyRegalia && hasNguyenRoyalRegalia) {
       addConflict(
         'RULE_CROSS_DYNASTY',
         'Trang phục khác triều đại',
@@ -2917,7 +2928,7 @@ class UIManager {
       addConflict(
         'RULE_ANACHRONISM',
         'Lễ phục và streetwear lệch thời',
-        'Áo Tấc gặp hoodie là “xuyên không collab” hơi mạnh tay rồi đó Tấm! Đổi một món để bản phối kể cùng một câu chuyện nha.'
+        'Áo lễ gặp hoodie hoặc cargo là cú xuyên không hơi gắt rồi Tấm ơi! Đổi một món để bản phối cùng kể một câu chuyện nhé.'
       );
     }
 
@@ -2931,17 +2942,6 @@ class UIManager {
       );
     }
 
-    if (hasAny(ceremonialItems)) {
-      const hasSilkTrousers = hasAny([/quan_lua_bach/, /quan_lua_trang/, /quan_lua/]);
-      if (!hasSilkTrousers) {
-        addConflict(
-          'RULE_IMPROPER_CEREMONY',
-          'Lễ phục thiếu quần lụa phù hợp',
-          'Áo lễ đã chỉnh tề mà quần lụa còn vắng mặt rồi Tấm ơi! Thêm quần lụa trắng để bộ lễ phục trọn vẹn nhé.'
-        );
-      }
-    }
-
     const event = normalize(currentEvent);
     const isFestival = ['le_hoi', 'lehoi', 'trang_nghiem'].includes(event);
     const isStreet = ['dao_pho', 'daopho', 'pha_cach'].includes(event);
@@ -2951,18 +2951,18 @@ class UIManager {
       addConflict(
         'RULE_EVENT_MISMATCH',
         'Bản phối đương đại lệch sự kiện lễ hội',
-        'Tấm ơi, mình đang đi lễ hội mà cả set như vừa bước xuống phố neon! Thêm một món truyền thống để hợp không khí nhé.'
+        'Tấm ơi, cả set đang đậm chất phố thị mà mình chọn lễ hội rồi! Thêm một món truyền thống hoặc đổi sự kiện cho đúng vibe nhé.'
       );
     } else if (
       isStreet &&
-      hasAny([/ao_vua/]) &&
-      hasAny([/mu_vua/]) &&
-      (hasAny([/giay_vua/]) || hasAny([/quan_lua_bach/, /quan_lua_trang/]))
+      hasAny([/male_ao_vua_nguyen/]) &&
+      hasAny([/male_mu_vua_nguyen/]) &&
+      hasAny([/male_giay_vua_nguyen/])
     ) {
       addConflict(
         'RULE_EVENT_MISMATCH',
         'Hoàng bào không hợp bối cảnh dạo phố',
-        'Hoàng bào, mũ vua đủ set rồi mà mình đang dạo phố đó Tấm! Bộ này lên phố là spotlight chiếm hết cả con đường luôn.'
+        'Áo, mũ, giày vua đã đủ bộ mà mình đang dạo phố đó Tấm! Đổi sự kiện hoặc chọn set phố thị nhé.'
       );
     }
 

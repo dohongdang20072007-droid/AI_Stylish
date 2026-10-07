@@ -69,7 +69,10 @@ class CulturalValidator {
       return [];
     }
 
+    // Suppress speculative advisory pairs; keep only the explicit regional mix rule.
+    const highConfidenceRuleIds = new Set(['rule_ao_ba_ba_quai_thao']);
     return this.rules.filter(rule =>
+      highConfidenceRuleIds.has(rule.id) &&
       rule.items.every(itemId => currentOutfitIds.includes(itemId))
     );
   }
