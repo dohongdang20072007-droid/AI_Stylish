@@ -1,0 +1,44 @@
+/**
+ * data/users.js
+ * Danh sách tài khoản người dùng mẫu (Nexus ID Accounts)
+ * Phục vụ xác thực và lưu phiên cục bộ (LocalStorage)
+ */
+const mockUsersData = [
+  {
+    id: "u_my_uet",
+    name: "Nguyễn Hà My",
+    email: "25023212@vnu.edu.vn",
+    password: "123456",
+    gender: "nu",
+    avatar: "👩‍🎨",
+    badge: "UET Fashion Pioneer",
+    bio: "Sinh viên UET say mê Việt Phục và trí tuệ nhân tạo.",
+    savedOutfitsCount: 3
+  },
+  {
+    id: "u_minh_uet",
+    name: "Trần Minh",
+    email: "minh.tran@uet.vnu.edu.vn",
+    password: "123456",
+    gender: "nam",
+    avatar: "👨‍💻",
+    badge: "Tech Lead Architect",
+    bio: "Đam mê lập trình và tái cấu trúc thời trang di sản Đại Việt.",
+    savedOutfitsCount: 2
+  },
+  {
+    id: "u_dang_uet",
+    name: "Lê Hải Đăng",
+    email: "dang.le@uet.vnu.edu.vn",
+    password: "123456",
+    gender: "nam",
+    avatar: "⚡",
+    badge: "Heritage Researcher",
+    bio: "Nghiên cứu văn hóa cổ phục thời Lê - Nguyễn.",
+    savedOutfitsCount: 4
+  }
+];
+
+if (typeof window !== "undefined") {
+  window.mockUsersData = mockUsersData;
+}

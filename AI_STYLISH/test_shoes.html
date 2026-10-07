@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Photoshop - Canh Chỉnh Đôi Giày</title>
+  <style>
+    :root {
+      --bg-color: #0b0e14;
+      --panel-bg: rgba(18, 24, 38, 0.85);
+      --panel-border: rgba(45, 248, 197, 0.3);
+      --accent-color: #2df8c5;
+      --accent-glow: rgba(45, 248, 197, 0.6);
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* KHUNG WORKSPACE MA-NƠ-CANH */
+    .viewport {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #161f30 0%, #080a0f 100%);
+      overflow: hidden;
+    }
+
+    /* Lưới canvas caro mờ để dễ canh góc */
+    .viewport::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+      pointer-events: none;
+    }
+
+    .canvas-stage {
+      position: relative;
+      width: 480px;
+      height: 780px;
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    /* ẢNH GỐC MA-NƠ-CANH */
+    .mannequin-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      z-index: 1;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+    }
+
+    /* ẢNH ĐÔI GIÀY - FILTER DROP SHADOW TỎA SÁNG XANH MINT DẠ QUANG */
+    .shoes-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      z-index: 2;
+      pointer-events: none;
+      transform-origin: center center;
+      transition: transform 0.05s linear;
+      /* Vầng sáng Neon Mint / Cyan đồng điệu với màu dạ quang của đôi giày */
+      filter: drop-shadow(0 0 8px #2df8c5) drop-shadow(0 0 22px rgba(45, 248, 197, 0.75)) drop-shadow(0 0 40px rgba(0, 229, 255, 0.35));
+    }
+
+    /* BẢNG ĐIỀU KHIỂN MINI PHOTOSHOP */
+    .control-panel {
+      width: 380px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-left: 1px solid var(--panel-border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      overflow-y: auto;
+    }
+
+    .panel-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+    }
+
+    .panel-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .panel-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .value-badge {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      color: var(--accent-color);
+      background: rgba(45, 248, 197, 0.1);
+      border: 1px solid rgba(45, 248, 197, 0.25);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    /* STYLE THANH TRƯỢT RANGE */
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.15);
+      outline: none;
+      transition: background 0.2s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--accent-glow);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 16px var(--accent-color);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    /* CODE EXPORT BOX */
+    .output-box {
+      margin-top: 8px;
+      background: #05070a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 12px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.8rem;
+      color: #7ee787;
+      word-break: break-all;
+      line-height: 1.4;
+    }
+
+    .output-title {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* NÚT THAO TÁC */
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-reset {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-reset:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-copy {
+      background: var(--accent-color);
+      color: #0b0e14;
+      font-weight: 700;
+    }
+
+    .btn-copy:hover {
+      box-shadow: 0 0 16px var(--accent-glow);
+      background: #4efcd2;
+    }
+
+    .hotkey-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+      padding: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- KHUNG HIỂN THỊ MA-NƠ-CANH & GIÀY -->
+  <main class="viewport">
+    <div class="canvas-stage">
+      <!-- Base Ma-nơ-canh -->
+      <img id="mannequin" class="mannequin-layer" src="mannequin.png" alt="Base Mannequin">
+      
+      <!-- Đôi giày căn chỉnh -->
+      <img id="shoes" class="shoes-layer" src="shoes.png" alt="Shoes Layer">
+    </div>
+  </main>
+
+  <!-- BẢNG ĐIỀU KHIỂN MINI PHOTOSHOP -->
+  <aside class="control-panel">
+    <div class="panel-header">
+      <h2 class="panel-title">👟 Căn Chỉnh Giày (Shoes Fit)</h2>
+      <p class="panel-subtitle">Kéo thanh trượt để khớp đôi giày vào ma-nơ-canh</p>
+    </div>
+
+    <!-- 1. THU PHÓNG (SCALE) -->
+    <div class="control-group">
+      <div class="control-label-row">
+        <span>Thu phóng (Scale)</span>
+        <span id="val-scale" class="value-badge">1.00x</span>
+      </div>
+      <input type="range" id="slider-scale" min="0.10" max="3.00" step="0.01" value="1.00">
+    </div>
+
+    <!-- 2. TRỤC NGANG (MOVE X) -->
+    <div class="control-group">
+      <div class="control-label-row">
+        <span>Trục ngang (Move X)</span>
+        <span id="val-x" class="value-badge">0 px</span>
+      </div>
+      <input type="range" id="slider-x" min="-400" max="400" step="1" value="0">
+    </div>
+
+    <!-- 3. TRỤC DỌC (MOVE Y) -->
+    <div class="control-group">
+      <div class="control-label-row">
+        <span>Trục dọc (Move Y)</span>
+        <span id="val-y" class="value-badge">0 px</span>
+      </div>
+      <input type="range" id="slider-y" min="-600" max="600" step="1" value="0">
+    </div>
+
+    <!-- NÚT LÀM MỚI & SAO CHÉP -->
+    <div class="btn-row">
+      <button id="btn-reset" class="btn btn-reset">Đặt Lại (Reset)</button>
+      <button id="btn-copy" class="btn btn-copy">Sao Chép CSS</button>
+    </div>
+
+    <!-- CSS OUTPUT BOX -->
+    <div class="output-title">Mã CSS tạo sẵn:</div>
+    <div id="output-css" class="output-box">
+      transform: translate(0px, 0px) scale(1);
+    </div>
+
+    <!-- HƯỚNG DẪN PHÍM TẮT -->
+    <div class="hotkey-hint">
+      💡 <strong>Mẹo:</strong> Bạn có thể nhấp vào thanh trượt rồi dùng các phím mũi tên <strong>← ↑ → ↓</strong> trên bàn phím để tinh chỉnh chính xác từng 1px.
+    </div>
+  </aside>
+
+  <script>
+    // Elements
+    const shoesImg = document.getElementById('shoes');
+    const sliderScale = document.getElementById('slider-scale');
+    const sliderX = document.getElementById('slider-x');
+    const sliderY = document.getElementById('slider-y');
+
+    const valScale = document.getElementById('val-scale');
+    const valX = document.getElementById('val-x');
+    const valY = document.getElementById('val-y');
+    const outputCss = document.getElementById('output-css');
+    const btnReset = document.getElementById('btn-reset');
+    const btnCopy = document.getElementById('btn-copy');
+
+    // Hàm cập nhật transform trực tiếp lên ảnh giày
+    function updateTransform() {
+      const scale = parseFloat(sliderScale.value).toFixed(2);
+      const x = parseInt(sliderX.value, 10);
+      const y = parseInt(sliderY.value, 10);
+
+      // Cập nhật số hiển thị
+      valScale.textContent = `${scale}x`;
+      valX.textContent = `${x} px`;
+      valY.textContent = `${y} px`;
+
+      // Cập nhật transform style
+      const transformValue = `translate(${x}px, ${y}px) scale(${scale})`;
+      shoesImg.style.transform = transformValue;
+
+      // Xuất mã CSS
+      outputCss.textContent = `transform: ${transformValue};`;
+    }
+
+    // Lắng nghe sự kiện kéo trượt input
+    sliderScale.addEventListener('input', updateTransform);
+    sliderX.addEventListener('input', updateTransform);
+    sliderY.addEventListener('input', updateTransform);
+
+    // Nút đặt lại về giá trị ban đầu
+    btnReset.addEventListener('click', () => {
+      sliderScale.value = 1.00;
+      sliderX.value = 0;
+      sliderY.value = 0;
+      updateTransform();
+    });
+
+    // Nút sao chép mã CSS vào Clipboard
+    btnCopy.addEventListener('click', () => {
+      const textToCopy = outputCss.textContent.trim();
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalText = btnCopy.textContent;
+        btnCopy.textContent = "✓ Đã Chép!";
+        setTimeout(() => {
+          btnCopy.textContent = originalText;
+        }, 1500);
+      });
+    });
+
+    // Khởi tạo ban đầu
+    updateTransform();
+  </script>
+</body>
+</html>
