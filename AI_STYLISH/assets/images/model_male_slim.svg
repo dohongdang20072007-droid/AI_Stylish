@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800" width="400" height="800">
+  <defs>
+    <linearGradient id="maleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff2a55" />
+      <stop offset="50%" stop-color="#e60039" />
+      <stop offset="100%" stop-color="#990026" />
+    </linearGradient>
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <g filter="url(#neonGlow)">
+    <ellipse cx="200" cy="85" rx="36" ry="46" fill="url(#maleGrad)" />
+    <path d="M188 126 L212 126 L214 150 L186 150 Z" fill="url(#maleGrad)" />
+    <path d="M135 152 Q200 142 265 152 L260 270 Q240 330 248 375 L152 375 Q160 330 140 270 Z" fill="url(#maleGrad)" />
+    <path d="M135 152 Q115 220 112 300 Q108 360 102 420 Q106 430 114 425 Q122 360 126 300 Q135 235 145 180 Z" fill="url(#maleGrad)" />
+    <path d="M265 152 Q285 220 288 300 Q292 360 298 420 Q294 430 286 425 Q278 360 274 300 Q265 235 255 180 Z" fill="url(#maleGrad)" />
+    <path d="M152 375 L248 375 L252 460 Q245 560 236 670 L232 760 L208 760 L212 670 Q205 560 202 430 Q198 430 195 430 Q192 560 188 670 L192 760 L168 760 L164 670 Q155 560 148 460 Z" fill="url(#maleGrad)" />
+  </g>
+  <path d="M180 200 L220 200 M175 250 L225 250 M185 320 L215 320" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="3,3" />
+  <circle cx="200" cy="200" r="3" fill="#ffffff" />
+</svg>

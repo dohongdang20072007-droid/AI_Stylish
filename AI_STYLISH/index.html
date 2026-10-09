@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remix Remix Remix Remix Remix Remix Remix Remix Remix Remix Remix Fusion Stylist AI</title>
+  <meta name="description" content="Interactive virtual styling platform blending traditional Vietnamese attire with modern fashion using AI-driven outfit coordination and conflict detection.">
+  <meta property="og:title" content="Remix Remix Remix Remix Remix Remix Remix Remix Remix Remix Remix Fusion Stylist AI">
+  <meta property="og:description" content="Interactive virtual styling platform blending traditional Vietnamese attire with modern fashion using AI-driven outfit coordination and conflict detection.">
+
+  <style>
+    body:not(.app-ready) .app-header,
+    body:not(.app-ready) #scene-3 {
+      display: none !important;
+      opacity: 0 !important;
+    }
+
+    body:not(.app-ready) #scene-3 {
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    #scene-1 {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 99999 !important;
+      background-color: #0d0d11 !important;
+    }
+  </style>
+
+  <!-- Google Fonts (Full Vietnamese Diacritics Support: Inter & Playfair Display) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- HTML2Canvas CDN for High-Resolution Lookbook Export -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/base.css?v=2001">
+  <link rel="stylesheet" href="css/layout.css?v=2001">
+  <link rel="stylesheet" href="css/studio.css?v=2014">
+</head>
+<body class="theme-trang_nghiem">
+
+  <video id="global-bg-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
+    <source src="assets/videos/bg_chung.mp4" type="video/mp4">
+  </video>
+
+  <!-- ========================================================================
+       1. NỀN MÂY ĐỘNG TOÀN CỤC (GLOBAL CLOUD BACKGROUND)
+       Hiển thị tại: Scene 1, Bộ sưu tập, Sàn giao lưu, Tư liệu lịch sử, Giới thiệu
+       Tự động ẩn (opacity: 0 / display: none) khi bước vào Huyễn Cảnh (Sandbox)
+       ======================================================================== -->
+  <div id="global-cloud-bg" class="clouds-moving-2d" aria-hidden="true">
+    <video id="global-cloud-video" class="global-cloud-video" autoplay loop muted playsinline poster="assets/images/bg_dan_gian.png">
+      <source src="assets/videos/bg_lehoi.mp4" type="video/mp4">
+    </video>
+    <div class="clouds-drift-layer clouds-layer-1"></div>
+    <div class="clouds-drift-layer clouds-layer-2"></div>
+    <div class="clouds-veil-overlay"></div>
+  </div>
+
+  <!-- ========================================================================
+       2. HIỆU ỨNG CHUYỂN CẢNH MÂY PHỦ (CLOUD TRANSITION WIPE)
+       Kích hoạt khi người dùng chuyển giữa các phân hệ và phòng thử đồ
+       ======================================================================== -->
+  <div id="cloud-transition-screen" class="cloud-transition-overlay hidden" aria-hidden="true">
+    <video id="cloud-transition-video" class="cloud-transition-video" muted playsinline preload="auto">
+      <source src="assets/videos/cloud_transition.mp4" type="video/mp4">
+      <source src="https://cdn.jsdelivr.net/gh/dohongdang20072007-droid/AI_Stylish@main/AI_STYLISH/AI_STYLISH/assets/videos/cloud_transition.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- ========================================================================
+       TOP NAVIGATION BAR (Minimalist, Professional, No Dead Space)
+       ======================================================================== -->
+  <header class="app-header">
+    <div class="header-brand">
+      <h1 class="brand-title" id="brand-home-trigger" title="Gấm Vóc Phồn Hoa — Về Trang Đầu">
+        GẤM VÓC PHỒN HOA
+      </h1>
+    </div>
+
+    <!-- Center Workspace Navigation -->
+    <nav class="top-workspace-nav" id="top-workspace-nav" aria-label="Điều hướng không gian">
+      <button class="workspace-tab active" data-view="sandbox" id="tab-btn-sandbox">
+        HUYỄN CẢNH DỆT MỘNG
+      </button>
+      <button class="workspace-tab" data-view="wardrobe" id="tab-btn-wardrobe">
+        BỘ SƯU TẬP <span class="wardrobe-count-badge" id="wardrobe-count-badge">0</span>
+      </button>
+      <button class="workspace-tab" data-view="nexus" id="tab-btn-nexus">
+        SÀN GIAO LƯU 🌐
+      </button>
+      <button class="workspace-tab" data-view="history" id="tab-btn-history">
+        TƯ LIỆU LỊCH SỬ
+      </button>
+      <button class="workspace-tab" data-view="about" id="tab-btn-about">
+        GIỚI THIỆU DỰ ÁN
+      </button>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <!-- User Profile Hub (ẨN HOÀN TOÀN KHI CHƯA ĐĂNG NHẬP) -->
+      <div class="header-user-pill hidden" id="header-user-pill" title="Hồ sơ Nhà Thiết Kế Số">
+        <span class="user-avatar-badge" id="header-user-avatar">👤</span>
+        <div class="user-info-meta">
+          <span class="user-name-text" id="header-user-name"></span>
+          <span class="user-gender-tag" id="header-user-gender"></span>
+        </div>
+        <button type="button" class="btn-user-logout" id="btn-header-logout" title="Đăng xuất / Đổi tài khoản">⎋</button>
+      </div>
+
+      <!-- Nút Đăng Xuất Trên Navbar: [ RỜI KHỎI HUYỄN CẢNH ] -->
+      <button type="button" class="btn-leave-sanctum" id="btn-leave-sanctum" title="Rời khỏi Huyễn Cảnh &amp; Đăng xuất về Cảnh 1">
+        <span class="leave-icon">⎋</span> [ RỜI KHỎI HUYỄN CẢNH ]
+      </button>
+
+      <button id="btn-restart-app" class="btn-ghost" title="Làm mới trải nghiệm">LÀM MỚI</button>
+    </div>
+  </header>
+
+  <!-- MAIN SCENE CONTAINER -->
+  <main id="scene-viewport">
+
+    <!-- SCENE 1: TẤM CÁM INTRO -->
+    <section id="scene-1" class="scene active-scene destiny-intro-scene">
+      <video id="scene1-intro-video" class="scene1-fullscreen-video scene1-character-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
+        <source src="assets/videos/camkhoc.mp4" type="video/mp4">
+      </video>
+      <div class="scene1-right-veil" aria-hidden="true"></div>
+      <div id="scene1-mist-overlay" class="scene1-mist-overlay" aria-hidden="true"></div>
+
+      <div class="scene1-stage-layout" id="scene1-stage-layout">
+        <div class="scene1-empty-left-col" aria-hidden="true"></div>
+        <div class="scene1-content-right-col" id="scene1-content-right-col">
+          <div id="scene1-dialogue" class="scene1-dialogue scene1-dialogue-tam scene1-dialogue-visible" aria-live="polite">
+            <div class="scene1-dialogue-kicker">TẤM</div>
+            <p id="scene1-dialogue-text" class="scene1-dialogue-text">Huhu... Hội đình làng xôn xao, mà thân con áo vá víu, lấy gì mà đi trẩy hội cùng người ta...</p>
+            <span class="scene1-typewriter-cursor" aria-hidden="true">|</span>
+            <div class="scene1-dialogue-controls">
+              <button type="button" id="scene1-back" class="scene1-dialogue-button" disabled>[ ❮ QUAY LẠI ]</button>
+              <button type="button" id="scene1-next" class="scene1-dialogue-button btn-next">[ TIẾP THEO ❯ ]</button>
+              <button type="button" id="scene1-action" class="scene1-action-button" hidden>[ HÓA PHÉP TRANG PHỤC ]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SCENE 1.5: CỔNG VÀO HỘI CỦA TẤM (FANTASY AUTH SANCTUM)
+         Tích hợp 2 tab: [ Ghi danh ] & [ Vào hội ]
+         ============================================== -->
+    <section id="scene-1-5" class="scene">
+      <div class="auth-fantasy-viewport">
+        <video id="login-bg-video" src="assets/videos/bg_dangnhap.mp4" autoplay loop muted playsinline preload="auto" aria-hidden="true">
+          <source src="assets/videos/bg_dangnhap.mp4" type="video/mp4">
+          <source src="https://cdn.jsdelivr.net/gh/dohongdang20072007-droid/AI_Stylish@main/AI_STYLISH/AI_STYLISH/assets/videos/bg_dangnhap.mp4" type="video/mp4">
+        </video>
+        <!-- Live Stardust & Mist Canvas -->
+        <canvas id="auth-matrix-canvas" class="auth-matrix-canvas"></canvas>
+        <div class="auth-fantasy-glow-orb" aria-hidden="true"></div>
+
+        <div class="auth-fantasy-card" id="auth-hub-card">
+          <div class="auth-fantasy-header">
+            <div class="auth-kicker-badge">
+              <span class="auth-kicker-spark">✦</span>
+              <span class="auth-kicker-text">THỦ ẤN KẾT GIỚI · HUYỄN THẾ</span>
+              <span class="auth-kicker-spark">✦</span>
+            </div>
+            <h2 class="auth-fantasy-title" id="auth-card-title">CỔNG KHỞI HÀNH CỦA TẤM</h2>
+            <p class="auth-fantasy-sub" id="auth-card-sub">Ghi danh hoặc vào hội để bước vào Huyễn Cảnh Dệt Mộng cùng Ông Bụt.</p>
+          </div>
+
+          <!-- 2 Tab Chuyển Đổi: [ Ghi danh ] & [ Vào hội ] -->
+          <div class="auth-fantasy-tabs" role="tablist">
+            <button type="button" class="auth-tab-btn active" id="tab-auth-register" data-auth-mode="register" role="tab" aria-selected="true">
+              [ GHI DANH ]
+            </button>
+            <button type="button" class="auth-tab-btn" id="tab-auth-login" data-auth-mode="login" role="tab" aria-selected="false">
+              [ VÀO HỘI ]
+            </button>
+          </div>
+
+          <!-- FORM 1: GHI DANH -->
+          <form id="form-auth-register" class="auth-fantasy-form auth-panel active" onsubmit="return false;">
+            <!-- Trường 1: Danh xưng của Tấm -->
+            <div class="auth-fantasy-field">
+              <label for="register-username" class="auth-fantasy-label">
+                <span class="field-glyph">✦</span> TÊN CỦA TẤM <span class="field-sub-note">(Tên gọi)</span>
+              </label>
+              <div class="input-decor-wrap">
+                <input type="text" id="register-username" class="auth-fantasy-input" placeholder="Ví dụ: Tấm / Hà My" value="Tấm" required autocomplete="username">
+                <span class="input-icon-decor">📜</span>
+              </div>
+            </div>
+
+            <!-- Trường 2: Mật chú -->
+            <div class="auth-fantasy-field">
+              <label for="register-password" class="auth-fantasy-label">
+                <span class="field-glyph">✦</span> MẬT CHÚ KHỞI ẤN <span class="field-sub-note">(Mật khẩu)</span>
+              </label>
+              <div class="input-decor-wrap">
+                <input type="password" id="register-password" class="auth-fantasy-input" placeholder="Nhập mật chú bảo mật..." value="123456" required autocomplete="new-password">
+                <span class="input-icon-decor">🔑</span>
+              </div>
+            </div>
+
+            <!-- Trường 3: Xác nhận Mật chú -->
+            <div class="auth-fantasy-field">
+              <label for="register-confirm-password" class="auth-fantasy-label">
+                <span class="field-glyph">✦</span> XÁC NHẬN MẬT CHÚ <span class="field-sub-note">(Nhập lại mật khẩu)</span>
+              </label>
+              <div class="input-decor-wrap">
+                <input type="password" id="register-confirm-password" class="auth-fantasy-input" placeholder="Xác nhận lại mật chú..." value="123456" required autocomplete="new-password">
+                <span class="input-icon-decor">🔒</span>
+              </div>
+            </div>
+
+            <!-- Trường 4: Hệ Gen Avatar (Dáng Nam / Nữ) -->
+            <div class="auth-fantasy-field">
+              <span class="auth-fantasy-label">
+                <span class="field-glyph">✦</span> HỆ GEN AVATAR <span class="field-sub-note">(Dáng người mẫu mặc định)</span>
+              </span>
+              <div class="auth-gender-grid">
+                <button type="button" class="auth-gender-card active" data-gender="nam" id="auth-gender-card-nam">
+                  <span class="gender-card-ico">♂</span>
+                  <div class="gender-card-meta">
+                    <strong class="gender-card-name">[ DÁNG NAM ]</strong>
+                    <span class="gender-card-desc">Thẳng chuẩn mực · Ngũ Thân &amp; Áo Tấc</span>
+                  </div>
+                </button>
+                <button type="button" class="auth-gender-card" data-gender="nu" id="auth-gender-card-nu">
+                  <span class="gender-card-ico">♀</span>
+                  <div class="gender-card-meta">
+                    <strong class="gender-card-name">[ DÁNG NỮ ]</strong>
+                    <span class="gender-card-desc">Thanh mảnh uyển chuyển · Nhật Bình &amp; Áo Yếm</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Nút Submit Ghi Danh -->
+            <div class="auth-submit-wrap">
+              <button type="submit" class="btn-fantasy-enter" id="btn-submit-register">
+                <span class="btn-lotus-icon">✦</span>
+                <span class="btn-enter-text">[ KHỞI TẠO VẬN MỆNH ]</span>
+                <span class="btn-arrow-icon">▶</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- FORM 2: VÀO HỘI -->
+          <form id="form-auth-login" class="auth-fantasy-form auth-panel" onsubmit="return false;">
+            <!-- Trường 1: Danh xưng của Tấm -->
+            <div class="auth-fantasy-field">
+              <label for="login-username" class="auth-fantasy-label">
+                <span class="field-glyph">✦</span> TÊN CỦA TẤM <span class="field-sub-note">(Tên gọi)</span>
+              </label>
+              <div class="input-decor-wrap">
+                <input type="text" id="login-username" class="auth-fantasy-input" placeholder="Ví dụ: Tấm / Hà My" value="Tấm" required autocomplete="username">
+                <span class="input-icon-decor">📜</span>
+              </div>
+            </div>
+
+            <!-- Trường 2: Mật chú -->
+            <div class="auth-fantasy-field">
+              <label for="login-password" class="auth-fantasy-label">
+                <span class="field-glyph">✦</span> MẬT CHÚ KHỞI ẤN <span class="field-sub-note">(Mật khẩu)</span>
+              </label>
+              <div class="input-decor-wrap">
+                <input type="password" id="login-password" class="auth-fantasy-input" placeholder="Nhập mật chú bảo mật..." value="123456" required autocomplete="current-password">
+                <span class="input-icon-decor">🔑</span>
+              </div>
+            </div>
+
+            <!-- Nút Submit Vào Hội -->
+            <div class="auth-submit-wrap">
+              <button type="submit" class="btn-fantasy-enter" id="btn-submit-login">
+                <span class="btn-lotus-icon">✦</span>
+                <span class="btn-enter-text">[ VÀO HỘI ]</span>
+                <span class="btn-arrow-icon">▶</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="auth-fantasy-footer">
+            <button type="button" class="btn-fantasy-back" id="btn-auth-back-to-scene-1">
+              ◀ QUAY LẠI LỜI DẪN CỦA ÔNG BỤT
+            </button>
+            <span class="auth-seal-note">🔒 Đồng bộ hành trình của Tấm an toàn</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SCENE 2: LỰA CHỌN SỰ KIỆN ỨNG DỤNG (THEME & EVENT SELECTION)
+         ============================================== -->
+    <section id="scene-2" class="scene">
+      <div class="theme-select-container">
+        <div class="theme-select-header">
+          <h2 class="theme-select-heading">CHỌN SỰ KIỆN ỨNG DỤNG CHO BẢN PHỐI</h2>
+          <p class="theme-select-sub">Khám phá bản sắc qua các bối cảnh đời sống thực tế của thế hệ trẻ</p>
+        </div>
+
+        <!-- 3 Cards Sự Kiện Sang Trọng, Đúng Yêu Cầu Người Dùng -->
+        <div class="theme-cards-grid">
+          <!-- Card 1: Chốn Linh Thiêng -->
+          <div class="theme-card active" data-theme="trang_nghiem" data-video="assets/videos/bg_lehoi.mp4" data-poster="assets/images/bg_dan_gian.png" data-neon="#ffd700">
+            <div class="theme-card-bg bg-lehoi" style="background-image: url('assets/images/bg_dan_gian.png');"></div>
+            <div class="theme-card-overlay"></div>
+            <div class="theme-card-content">
+              <span class="theme-card-tag">BỐI CẢNH 1 • TRANG NGHIÊM</span>
+              <h3 class="theme-card-title">CHỐN LINH THIÊNG</h3>
+              <p class="theme-card-subtitle">Đi lễ chùa / Lễ hội truyền thống</p>
+              <p class="theme-card-desc">Sân chùa Thiên Mụ & phố lồng đèn Hội An cổ kính. Phối Áo Tấc, Ngũ Thân, Giao Lĩnh trang nghiêm.</p>
+              <div class="theme-card-fx-note">🌸 Cánh hoa mai/đào rơi & lồng đèn tỏa sáng</div>
+              <div class="theme-card-indicator"></div>
+            </div>
+          </div>
+
+          <!-- Card 2: Dạ Tiệc Đương Đại -->
+          <div class="theme-card" data-theme="sang_trong" data-video="assets/videos/bg_datiec.mp4" data-poster="assets/images/bg_cung_dinh.png" data-neon="#d946ef">
+            <div class="theme-card-bg bg-datiec" style="background-image: url('assets/images/bg_cung_dinh.png');"></div>
+            <div class="theme-card-overlay"></div>
+            <div class="theme-card-content">
+              <span class="theme-card-tag">BỐI CẢNH 2 • SANG TRỌNG</span>
+              <h3 class="theme-card-title">DẠ TIỆC ĐƯƠNG ĐẠI</h3>
+              <p class="theme-card-subtitle">Dự tiệc / Event lớn</p>
+              <p class="theme-card-desc">Sảnh tiệc cung đình dát vàng hoàng gia. Phối Nhật Bình cách tân, khoác ngoài dạ hội lộng lẫy.</p>
+              <div class="theme-card-fx-note">✨ Bụi vàng (Gold Bokeh) lấp lánh sang trọng</div>
+              <div class="theme-card-indicator"></div>
+            </div>
+          </div>
+
+          <!-- Card 3: Phố Thị Neon -->
+          <div class="theme-card" data-theme="pha_cach" data-video="assets/videos/bg_daopho.mp4" data-poster="assets/images/bg_gen_z.png" data-neon="#00f0ff">
+            <div class="theme-card-bg bg-daopho" style="background-image: url('assets/images/bg_gen_z.png');"></div>
+            <div class="theme-card-overlay"></div>
+            <div class="theme-card-content">
+              <span class="theme-card-tag">BỐI CẢNH 3 • PHÁ CÁCH</span>
+              <h3 class="theme-card-title">PHỐ THỊ NEON</h3>
+              <p class="theme-card-subtitle">Đi chơi / Dạo phố / Cafe Gen Z</p>
+              <p class="theme-card-desc">Phố Tạ Hiện & phố đi bộ Cyberpunk ban đêm. Phối Áo Yếm mix Jeans, Áo Tấc mix Sneaker chunky.</p>
+              <div class="theme-card-fx-note">⚡ Đèn neon chớp nháy & mưa phùn lất phất</div>
+              <div class="theme-card-indicator"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thanh điều khiển Âm thanh Bối cảnh (Scene 2 Theme Audio) -->
+        <div class="scene2-audio-banner">
+          <div class="scene2-audio-meta">
+            <span class="audio-equalizer-bars" id="audio-eq-bars">
+              <span></span><span></span><span></span><span></span>
+            </span>
+            <span class="scene2-audio-title" id="scene2-audio-track-name">ÂM THANH: CHỐN LINH THIÊNG (SÁO TRÚC DÂN GIAN)</span>
+          </div>
+          <button type="button" class="btn-theme-audio-toggle" id="btn-theme-audio-toggle" title="Tắt / Bật Âm nhạc Bối cảnh" aria-label="Tắt / Bật Âm nhạc Bối cảnh" aria-pressed="true">
+            <span id="theme-audio-icon">🔊</span>
+            <span id="theme-audio-label">BẬT</span>
+          </button>
+        </div>
+
+        <div class="theme-actions">
+          <button id="btn-back-to-scene-1" class="btn-theme-ghost">◀ QUAY LẠI CỔNG XÁC THỰC</button>
+          <button id="btn-confirm-theme" class="btn-theme-primary">TIẾP TỤC VÀO HUYỄN CẢNH DỆT MỘNG ▶</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SCENE 3: HUYỄN CẢNH DỆT MỘNG (THE ILLUSORY WEAVING SANCTUM)
+         TOÀN MÀN HÌNH (FULLSCREEN PANORAMIC ATELIER)
+         ============================================== -->
+    <section id="scene-3" class="scene">
+
+      <!-- WORKSPACE VIEW: SANDBOX (FASHION GAME UI ARCHITECTURE - CHIẾM TRỌN 100% TOÀN MÀN HÌNH) -->
+      <div class="workspace-view active wardrobe-closed" id="view-sandbox">
+
+        <!-- 1. FULL-SCREEN PANORAMIC DYNAMIC BACKGROUND (CHIẾM TRỌN TOÀN MÀN HÌNH) -->
+        <div id="stage-backdrop" class="fullscreen-stage-backdrop">
+          <video id="dynamic-bg" class="dynamic-bg-video" autoplay loop muted playsinline poster="assets/images/bg_dan_gian.png">
+            <source src="assets/videos/bg_lehoi.mp4" type="video/mp4">
+          </video>
+          <!-- Live Canvas for Ambient Dynamic Particles (Flower Petals, Gold Bokeh, Neon Rain) -->
+          <canvas id="ambient-fx-canvas" class="ambient-fx-canvas"></canvas>
+          <div class="bg-overlay"></div>
+        </div>
+
+        <!-- 2. TOP FLOATING HUD (Header Navigation, Quick Event Pills, Presets & Warning Banner) -->
+        <div class="studio-top-hud">
+          <div class="stage-top-bar">
+            <div class="event-change-control" id="event-change-control">
+              <button id="btn-back-to-scene-2" class="btn-stage-back" type="button"
+                title="Đi tới màn hình chọn sự kiện" aria-expanded="true" aria-controls="event-quick-pills">
+                ◀ ĐỔI SỰ KIỆN
+              </button>
+              <div class="event-quick-switch" id="event-quick-pills">
+                <button class="event-pill-btn active" type="button" data-event="trang_nghiem">LỄ HỘI</button>
+                <button class="event-pill-btn" type="button" data-event="sang_trong">DẠ TIỆC</button>
+                <button class="event-pill-btn" type="button" data-event="pha_cach">DẠO PHỐ</button>
+              </div>
+            </div>
+            <button type="button" id="btn-sound-toggle" class="btn-icon stage-audio-toggle" title="Nhạc nền sẽ phát sau tương tác đầu tiên" aria-label="Tắt nhạc nền bối cảnh" aria-pressed="true">🔊</button>
+
+            <!-- Presets for Fast Demonstration -->
+            <div class="preset-combos-bar">
+              <button type="button" class="preset-menu-trigger" aria-haspopup="true">✦ PHỐI NGẪU NHIÊN</button>
+              <div class="preset-combo-menu">
+                <button type="button" class="preset-combo-btn" data-preset="lehoi_standard">🌸 LỄ HỘI</button>
+                <button type="button" class="preset-combo-btn" data-preset="royal_gala">👑 DẠ TIỆC</button>
+                <button type="button" class="preset-combo-btn" data-preset="street_cyber">⚡ DẠO PHỐ</button>
+              </div>
+            </div>
+
+            <div class="stage-right-meta">
+              <span id="equipped-count" class="stage-stats">ĐANG MẶC: 0 MÓN</span>
+              <button id="btn-reset-outfit" class="btn-stage-action" title="Cởi bỏ toàn bộ trang phục">
+                ↺ LÀM TRỐNG
+              </button>
+            </div>
+          </div>
+
+          <!-- Auto-Validation Warning Banner (Slides down when cultural/historical conflict is detected) -->
+          <div id="cultural-alert-box" class="cultural-alert-box hidden" role="alert">
+            <div class="alert-icon">⚠️</div>
+            <div class="alert-content">
+              <div class="alert-title-row">
+                <h4 id="alert-title" class="alert-title">CẢNH BÁO XUNG ĐỘT VĂN HÓA / ĐIỂN CHẾ</h4>
+                <span class="alert-auto-tag">TỰ ĐỘNG QUÉT</span>
+              </div>
+              <p id="alert-desc" class="alert-desc">Sự kết hợp này vi phạm quy chuẩn điển chế lịch sử.</p>
+            </div>
+            <button id="btn-dismiss-alert" class="alert-close" title="Đóng cảnh báo">✕</button>
+          </div>
+        </div>
+
+        <!-- 3. CENTERPIECE MANNEQUIN STAGE (CENTER KHI ĐÓNG TỦ ĐỒ, SLIDE SANG TRÁI KHI MỞ TỦ ĐỒ) -->
+        <div class="studio-mannequin-stage" id="studio-mannequin-stage">
+          <div class="avatar-container mannequin-stage-area" id="avatar-container">
+
+            <div class="mannequin-compositor" id="mannequin-compositor">
+              <!-- Ambient Floor Shadow -->
+              <div class="mannequin-floor-shadow" aria-hidden="true"></div>
+
+              <!-- Base Mannequin Image (Fashion Model Proportions) -->
+              <img id="mannequin-base-img" class="mannequin-layer layer-base" src="assets/images/model_male_slim.png" alt="Fashion Mannequin Model" onerror="this.src='assets/images/model_male_slim.png';">
+
+              <!-- Dynamic Auto-Snapped Clothing Layers (Strict Z-Index Order) -->
+              <img id="layer-quan" class="mannequin-layer layer-bottoms hidden" alt="Quần hoặc Váy" referrerPolicy="no-referrer">
+              <img id="layer-giay" class="mannequin-layer layer-footwear hidden" alt="Giày Dép" referrerPolicy="no-referrer">
+              <img id="layer-ao" class="mannequin-layer layer-tops hidden" alt="Áo" referrerPolicy="no-referrer">
+              <img id="layer-phukien" class="mannequin-layer layer-accessories hidden" alt="Phụ Kiện" referrerPolicy="no-referrer">
+
+              <!-- Laser Scanning Overlay during Render -->
+              <div id="stage-laser-scanner" class="stage-laser-scanner hidden">
+                <div class="stage-laser-beam"></div>
+                <div class="stage-laser-hud">
+                  <span class="stage-laser-status">AI ĐANG ĐỒNG BỘ HÓA DỮ LIỆU &amp; RENDER NGƯỜI THẬT...</span>
+                  <span id="stage-laser-percent" class="stage-laser-percent">0%</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Di chuyển Bộ điều khiển màu ra ngoài sân khấu mannequin để ghim giữa màn hình -->
+        <div class="mannequin-foot-controls" id="mannequin-foot-controls">
+          <div class="mannequin-top-gender-bar" id="mannequin-gender-switch" role="group" aria-label="Chọn giới tính ma-nơ-canh">
+            <span class="gender-switch-label">MA-NƠ-CANH:</span>
+            <button type="button" class="btn-mannequin-gender active" data-gender="nam" id="btn-mannequin-gender-nam" aria-pressed="true" title="Chọn ma-nơ-canh nam">
+              <span class="gender-ico">♂</span> NAM
+            </button>
+            <button type="button" class="btn-mannequin-gender" data-gender="nu" id="btn-mannequin-gender-nu" aria-pressed="false" title="Chọn ma-nơ-canh nữ">
+              <span class="gender-ico">♀</span> NỮ
+            </button>
+          </div>
+
+          <!-- 1. Chọn Sắc Độ Da (Skin Tone) -->
+          <div class="skin-tone-selector">
+            <span class="custom-label">MÀU DA:</span>
+            <div class="skin-swatches" id="skin-swatches-group">
+              <button type="button" class="skin-swatch skin-swatch-btn active" data-tone="original" aria-label="Màu da nguyên bản" title="Nguyên bản (Dáng gốc)" style="background: linear-gradient(135deg, #fde68a 0%, #ca8a04 100%);">✦</button>
+              <button type="button" class="skin-swatch skin-swatch-btn" data-tone="fair" aria-label="Màu da sáng" title="Sáng (Bạch ngọc)" style="background: #fff0e6;"></button>
+              <button type="button" class="skin-swatch skin-swatch-btn" data-tone="rosy" aria-label="Màu da trắng hồng" title="Trắng Hồng" style="background: #fdf0ed;"></button>
+              <button type="button" class="skin-swatch skin-swatch-btn" data-tone="natural" aria-label="Màu da tự nhiên" title="Tự nhiên (Da vàng Á Đông)" style="background: #fde68a;"></button>
+              <button type="button" class="skin-swatch skin-swatch-btn" data-tone="tanned" aria-label="Màu da ngăm" title="Ngăm (Bánh mật / Đồng thau)" style="background: #a16207;"></button>
+            </div>
+            <label class="color-input-label" for="skin-color-picker">Tùy chỉnh</label>
+            <input type="color" id="skin-color-picker" class="custom-color-input" value="#fff0e6" aria-label="Tùy chỉnh màu da">
+          </div>
+
+          <span class="foot-ctrl-divider" aria-hidden="true"></span>
+
+          <!-- 2. Chỉnh màu trang phục bằng bảng màu tùy chỉnh -->
+          <div class="garment-color-controls">
+            <span class="custom-label">MÀU <span id="color-target-label">ÁO</span>:</span>
+            <label class="color-input-label" for="garment-color-picker">Tùy chỉnh</label>
+            <input type="color" id="garment-color-picker" class="custom-color-input" value="#ffffff" aria-label="Tùy chỉnh màu trang phục">
+          </div>
+
+          <button id="btn-render-ai" class="btn-ai-render mannequin-commit-button" title="Gửi bản phối cho Ông Bụt chấm điểm">
+            <span class="btn-glitch-icon">✦</span>
+            <span class="btn-text">[ THỨC TỈNH ÔNG BỤT ]</span>
+          </button>
+        </div>
+
+        <!-- 5. VERTICAL CATEGORY MENU BAR (SẮP XẾP THEO CHIỀU DỌC Ở BÊN PHẢI) -->
+        <aside class="vertical-category-nav" id="vertical-category-nav" aria-label="Thanh danh mục tủ đồ dọc">
+          <div class="v-nav-header">
+            <span class="v-nav-badge">TỦ ĐỒ</span>
+          </div>
+          <div class="v-nav-buttons" role="tablist">
+            <button class="v-cat-btn" data-cat="ao" role="tab" title="Áo Cổ Phục &amp; Đương Đại">
+              <span class="v-cat-icon">👘</span>
+              <span class="v-cat-label">ÁO</span>
+            </button>
+            <button class="v-cat-btn" data-cat="quan" role="tab" title="Quần &amp; Váy">
+              <span class="v-cat-icon">👖</span>
+              <span class="v-cat-label">QUẦN / VÁY</span>
+            </button>
+            <button class="v-cat-btn" data-cat="phukien" role="tab" title="Phụ Kiện Điển Chế &amp; Đương Đại">
+              <span class="v-cat-icon">👑</span>
+              <span class="v-cat-label">PHỤ KIỆN</span>
+            </button>
+            <button class="v-cat-btn" data-cat="giay" role="tab" title="Giày Dép, Hài, Guốc, Sneaker">
+              <span class="v-cat-icon">👞</span>
+              <span class="v-cat-label">GIÀY DÉP</span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- 6. SLIDE-OUT WARDROBE DRAWER PANEL (HIỆN RA KHI BẤM BUTTON DANH MỤC) -->
+        <section class="wardrobe-drawer-panel" id="wardrobe-drawer-panel" aria-label="Ngăn kéo tủ đồ thời trang">
+          <div class="drawer-header">
+            <div class="drawer-title-wrap">
+              <span class="drawer-cat-icon" id="drawer-cat-icon">👘</span>
+              <div class="drawer-title-meta">
+                <h3 class="drawer-title" id="drawer-category-title">DANH MỤC: ÁO</h3>
+                <span class="drawer-sub-count" id="drawer-item-count">0 VẬT PHẨM</span>
+              </div>
+            </div>
+
+            <div class="drawer-header-actions">
+              <!-- Sub-filter: Tất cả / Cổ truyền / Đương đại -->
+              <div class="sub-filter-bar">
+                <button class="sub-btn active" data-filter="all">TẤT CẢ</button>
+                <button class="sub-btn" data-filter="traditional">CỔ TRUYỀN</button>
+                <button class="sub-btn" data-filter="modern">ĐƯƠNG ĐẠI</button>
+              </div>
+
+              <!-- Close drawer button (Trượt tủ đồ về bên phải, trả ma-nơ-canh về giữa) -->
+              <button id="btn-close-wardrobe-drawer" class="btn-drawer-close" title="Đóng tủ đồ (Đưa người mẫu về chính giữa)">✕</button>
+            </div>
+          </div>
+
+          <!-- Wardrobe Grid of Square Buttons (Ảnh trang phục ở trên, Tên ở dưới) -->
+          <div id="wardrobe-grid" class="wardrobe-grid">
+            <!-- Injected by ui.js as <button class="wardrobe-item-btn"> -->
+          </div>
+
+          <!-- Compact Helper Bar -->
+          <div class="wardrobe-hint-bar">
+            <span>💡 Rê chuột để xem nhanh lịch sử. Nhấp vào ô để mặc hoặc cởi trang phục.</span>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             HỆ THỐNG NPC "Y LINH MINI" (THÔNG TIN & CẢNH BÁO)
+             ============================================== -->
+        <div id="mini-but" class="mini-but" style="display: none !important;" aria-live="polite">
+          <div class="ylinh-dialogue-bubble" id="ylinh-dialogue-bubble">
+            <div class="ylinh-bubble-header">
+              <span class="ylinh-chibi-badge">✦ ÔNG BỤT MINI</span>
+              <span class="ylinh-bubble-status" id="ylinh-status-text">HƯỚNG DẪN</span>
+            </div>
+            <p id="ylinh-speech-text" class="ylinh-speech-text">
+              Chào con! Hãy chọn trang phục trong tủ đồ, ta sẽ giúp con dệt nên một bản phối thật đẹp.
+            </p>
+          </div>
+
+          <div class="ylinh-chibi-avatar" id="ylinh-chibi-avatar" title="Ông Bụt mini">
+            <div class="ylinh-chibi-glow"></div>
+            <video class="but-mini-video" id="but-mini-video-el" autoplay loop muted playsinline poster="assets/images/ong_but.png" style="display:none; width:56px; height:56px; border-radius:50%; object-fit:cover;">
+              <source src="assets/videos/ongbut.mp4" type="video/mp4">
+            </video>
+            <img class="but-mini-image" id="but-mini-image-el" src="assets/images/ong_but.png" alt="Ông Bụt mini" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
+            <div class="ylinh-chibi-spirit but-mini-fallback" hidden>🧙‍♂️✨</div>
+          </div>
+        </div>
+
+        <aside id="quick-outfit-score" class="quick-outfit-score" aria-live="polite">
+          <span class="quick-score-kicker">✦ ÔNG BỤT NHÌN BẢN PHỐI</span>
+          <strong id="quick-outfit-score-value" class="quick-score-value">0/100 Điểm</strong>
+          <span id="quick-outfit-fit" class="quick-score-fit">Hãy chọn áo và quần để ta xem duyên hội làng.</span>
+        </aside>
+
+      </div><!-- /#view-sandbox -->
+
+      <!-- WORKSPACE VIEW: WARDROBE (BỘ SƯU TẬP CÁ NHÂN) -->
+      <div class="wardrobe-view" id="wardrobe-view">
+        <video id="wardrobe-bg-video" class="wardrobe-video-bg" src="assets/videos/bg_bosuutap.mp4" autoplay loop muted playsinline preload="auto" aria-hidden="true">
+          <source src="assets/videos/bg_bosuutap.mp4" type="video/mp4">
+          <source src="https://cdn.jsdelivr.net/gh/dohongdang20072007-droid/AI_Stylish@main/AI_STYLISH/AI_STYLISH/assets/videos/bg_bosuutap.mp4" type="video/mp4">
+        </video>
+        <div class="wardrobe-right-panel">
+          <div class="wardrobe-saved-container">
+            <div id="wardrobe-saved-grid" class="wardrobe-saved-grid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WORKSPACE VIEW: NEXUS FEED (SÀN GIAO LƯU THẾ GIỚI) -->
+      <div class="nexus-view" id="nexus-view">
+        <div class="nexus-header">
+          <div class="nexus-title-wrap">
+            <button class="history-back-btn" id="btn-close-nexus">◀ QUAY LẠI HUYỄN CẢNH DỆT MỘNG</button>
+            <div class="nexus-title-meta">
+              <h2 class="nexus-title">SÀN GIAO LƯU THẾ GIỚI (THE NEXUS FEED)</h2>
+              <p class="nexus-subtitle">Không gian mạng xã hội thời trang di sản thế hệ mới. Khám phá, thả tim, bình luận và REMIX sáng tạo.</p>
+            </div>
+          </div>
+          <div class="nexus-top-actions">
+            <button type="button" class="btn-nexus-share-current" id="btn-nexus-open-share">
+              ➕ ĐĂNG BẢN PHỐI ĐANG MẶC LÊN SÀN
+            </button>
+          </div>
+        </div>
+
+        <div class="nexus-filter-bar">
+          <div class="nexus-pills-group" id="nexus-filter-pills">
+            <button type="button" class="nexus-pill active" data-filter="all">TẤT CẢ BẢN PHỐI</button>
+            <button type="button" class="nexus-pill" data-filter="trending">THỊNH HÀNH 🔥</button>
+            <button type="button" class="nexus-pill" data-filter="trang_nghiem">LỄ HỘI 🌸</button>
+            <button type="button" class="nexus-pill" data-filter="sang_trong">DẠ TIỆC 👑</button>
+            <button type="button" class="nexus-pill" data-filter="pha_cach">DẠO PHỐ ⚡</button>
+          </div>
+          <div class="nexus-stats-badge" id="nexus-feed-count">4 BẢN PHỐI ĐÃ CHIA SẺ</div>
+        </div>
+
+        <div class="nexus-feed-stream" id="nexus-posts-stream">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- WORKSPACE VIEW: HISTORY VIEW -->
+      <div class="history-view" id="history-view">
+        <div class="history-header">
+          <div class="history-title-wrap">
+            <button class="history-back-btn" id="btn-close-history">◀ QUAY LẠI HUYỄN CẢNH DỆT MỘNG</button>
+            <h2 class="history-title">KHO TƯ LIỆU DI SẢN CỔ PHỤC ĐẠI VIỆT</h2>
+          </div>
+          <div class="history-badge" id="history-stats-count">24 HIỆN VẬT ĐÃ SỐ HÓA</div>
+        </div>
+
+        <!-- ÔNG BỤT MINI TẠI PHÒNG TƯ LIỆU LỊCH SỬ (GÓC PHẢI) -->
+        <div id="npc-history" class="npc-mini npc-history-box">
+          <div class="npc-history-dialogue" id="npc-history-dialogue" aria-live="polite">
+            <div class="npc-history-badge">✦ ÔNG BỤT · CHUYỆN ÁO XƯA</div>
+            <p id="npc-history-text" class="npc-history-text"></p>
+            <span class="npc-history-cursor" id="npc-history-cursor">|</span>
+          </div>
+          <button type="button" class="npc-history-avatar" id="btn-toggle-history-dialogue"
+            title="Ẩn lời thoại của Ông Bụt" aria-label="Ẩn lời thoại của Ông Bụt"
+            aria-controls="npc-history-dialogue" aria-expanded="true">
+            <div class="npc-history-glow"></div>
+            <img class="npc-history-image" src="assets/images/ong_but.png" alt="Ông Bụt mini">
+          </button>
+        </div>
+
+        <div class="history-category-tabs">
+          <button class="history-category-tab active" data-cat="all">TẤT CẢ DANH MỤC</button>
+          <button class="history-category-tab" data-cat="ao">ÁO CỔ PHỤC &amp; ĐƯƠNG ĐẠI</button>
+          <button class="history-category-tab" data-cat="quan">QUẦN / VÁY</button>
+          <button class="history-category-tab" data-cat="phukien">PHỤ KIỆN ĐIỂN CHẾ</button>
+          <button class="history-category-tab" data-cat="giay">GIÀY DÉP / HÀI GUỐC</button>
+        </div>
+
+        <div class="history-sub-filter">
+          <span class="history-filter-label">PHONG CÁCH:</span>
+          <button class="history-sub-btn active" data-filter="all">TẤT CẢ</button>
+          <button class="history-sub-btn" data-filter="traditional">CỔ TRUYỀN</button>
+          <button class="history-sub-btn" data-filter="modern">ĐƯƠNG ĐẠI</button>
+        </div>
+
+        <div class="history-main-content">
+          <div class="history-list-pane">
+            <div class="history-list" id="history-list">
+              <!-- Populated by ui.js -->
+            </div>
+          </div>
+          <div class="history-detail" id="history-detail">
+            <!-- Populated by ui.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- WORKSPACE VIEW: ABOUT VIEW -->
+      <div class="about-view" id="about-view">
+        <div class="about-container">
+          <div class="about-header">
+            <h2 class="about-title">HÀNH TRÌNH REMIX BẢN SẮC</h2>
+            <button class="history-back-btn" id="btn-close-about">◀ QUAY LẠI HUYỄN CẢNH DỆT MỘNG</button>
+          </div>
+
+          <div class="about-block">
+            <div class="about-block-text about-journey-text">
+              <p>Là những đứa trẻ Gen Z lớn lên giữa kỷ nguyên số hóa, chúng tôi nhìn lại chiều dài lịch sử và không khỏi ngỡ ngàng trước một Việt Nam rực rỡ với hàng ngàn năm văn minh gấm vóc. Từng tà áo Tấc thanh tao, áo Nhật Bình uy nghi, hay chiếc áo Ngũ Thân mộc mạc... không đơn thuần là mảnh vải hay đường kim mũi chỉ, mà là kết tinh tinh hoa văn hóa, là nhịp đập tâm hồn của bao thế hệ tiền nhân.</p>
+              <p>Thế nhưng, một nỗi trăn trở luôn đau đáu trong chúng tôi: Tại sao một di sản đẹp và sâu sắc đến thế lại đang dần bị vô tình đóng khung trong khái niệm "trọng đại"? Hầu hết mọi người đều nghĩ trang phục truyền thống chỉ dành cho phim ảnh cổ trang, cưới hỏi hay dịp Lễ, Tết.</p>
+              <p>Đó chính là ngọn lửa lý do đưa chúng tôi đến với AI ARENA.</p>
+              <p>Chúng tôi đến Việt Phục Remix với mong muốn đập tan những rào cản tâm lý về trang phục truyền thống trong suy nghĩ của hầu hết mọi người.</p>
+              <p>Chúng tôi mong muốn trang phục truyền thống của nước nhà không chỉ hữu ích trong ngày hội, mà ngay cả khi khoác lên mình giữa nhịp sống thường nhật, chúng vẫn cực kỳ thời thượng, kiêu hãnh và đậm chất riêng. Thông qua sự trợ lực của công nghệ AI, chúng tôi sẽ gợi ý những cách phối đồ độc đáo, truyền tải thông điệp tích cực đến mọi người dân Việt Nam: Hãy tự tin mặc di sản bước ra phố mỗi ngày.</p>
+              <p>Rất mong những thử nghiệm nhỏ bé này sẽ nhận được sự đón nhận từ cộng đồng!</p>
+            </div>
+          </div>
+
+          <div class="about-block">
+            <h3 class="about-block-title">ĐỘI NGŨ PHÁT TRIỂN</h3>
+            <ul class="about-team-list">
+              <li>Nguyễn Hà My</li>
+              <li>Đỗ Hồng Đăng</li>
+              <li>Đỗ Ngọc Minh</li>
+            </ul>
+          </div>
+
+          <div class="about-block">
+            <h3 class="about-block-title">THÔNG TIN LIÊN HỆ</h3>
+            <p class="about-block-text">Email: <a href="mailto:25023329@vnu.edu.vn">25023329@vnu.edu.vn</a></p>
+            <p class="about-block-text">Hotline: <a href="tel:0378462776">0378 462 776</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       SMART LORE TOOLTIP (Hover Floating Card - Max 3 Lines, No Wall of Text)
+       ======================================================================== -->
+  <div id="lore-tooltip" class="lore-tooltip hidden" role="tooltip">
+    <div class="tooltip-header">
+      <span class="tooltip-title" id="tooltip-title">TÊN TRANG PHỤC</span>
+      <span class="tooltip-era" id="tooltip-era">Niên đại</span>
+    </div>
+    <div class="tooltip-line line-history">
+      <strong>Lịch sử:</strong> <span id="tooltip-history"></span>
+    </div>
+    <div class="tooltip-line line-usage">
+      <strong>Bối cảnh:</strong> <span id="tooltip-usage"></span>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       LOOKBOOK & COMMIT MODAL (Laser Scan 3s + Final AI Lookbook Export)
+       ======================================================================== -->
+  <div id="lookbook-modal" class="lookbook-modal hidden">
+    <div class="lookbook-dialog">
+
+      <!-- Modal Close Button -->
+      <button id="btn-close-lookbook" class="lookbook-close-btn" title="Đóng">✕</button>
+
+      <!-- Phase 1: Laser Scanner Progress View (3s Countdown) -->
+      <div id="laser-scanner-view" class="laser-scanner-view">
+        <div class="laser-scanner-grid"></div>
+        <div class="laser-scan-line"></div>
+        <div class="laser-scanner-center">
+          <div class="scanner-spinner"></div>
+          <h3 class="scanner-title">ÔNG BỤT ĐANG SOI CHIẾU BẢN PHỐI...</h3>
+          <p class="scanner-subtitle">Hội tụ chân khí di sản, khắc ghi thần thái vào Họa Đồ Ký Ức</p>
+          <div class="scanner-bar-wrap">
+            <div id="scanner-progress-bar" class="scanner-progress-bar"></div>
+          </div>
+          <span id="scanner-counter" class="scanner-counter">0%</span>
+        </div>
+      </div>
+
+      <!-- Phase 2: Họa Đồ Ký Ức Result View (Revealed after 3s) -->
+      <div id="lookbook-result-view" class="lookbook-result-view hidden">
+
+        <!-- LEFT: THE EXPORTABLE LOOKBOOK CARD (Preserved Background & Realistic Model) -->
+        <div class="collector-card-stage modal-left-column">
+          <div id="render-export-frame" class="render-export-frame collector-card-frame">
+            <!-- Corner Brackets -->
+            <div class="card-corner-bracket tl"></div>
+            <div class="card-corner-bracket tr"></div>
+            <div class="card-corner-bracket bl"></div>
+            <div class="card-corner-bracket br"></div>
+
+            <!-- Preserved Event Background Layer from Scene 2/3 -->
+            <div id="render-bg-layer" class="render-bg-layer"></div>
+            <div class="render-bg-scrim"></div>
+
+            <!-- 100% Realistic Model Full-Body Photo Matching the Outfit -->
+            <div class="collector-character-composite">
+              <img id="render-real-person-img" class="render-real-person-img" src="assets/images/real_renders/real_render_aotac_cargo.png" alt="Real Model Outfit" referrerPolicy="no-referrer">
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDEBAR: HỌA ĐỒ KÝ ỨC, NPC Y LINH & ACTIONS -->
+        <div class="result-sidebar">
+          <div class="result-header">
+            <div class="result-kicker">HỌA ĐỒ KÝ ỨC DI SẢN</div>
+            <h3 id="result-title" class="result-title">Áo Tấc Ngũ Thân x Cargo Techwear</h3>
+            <p id="result-tags" class="result-tags">Áo Tấc Tay Thụng · Quần Cargo Túi Hộp</p>
+          </div>
+
+          <!-- NPC Y Linh xuất hiện với vẻ mặt rạng rỡ tại màn hình Họa Đồ Ký Ức -->
+          <div id="npc-lookbook" class="npc-lookbook-box" aria-live="polite">
+            <div class="npc-lookbook-avatar" title="Ông Bụt giám định bản phối">
+              <div class="npc-lookbook-glow"></div>
+              <div class="npc-lookbook-sprite">✨🧚🌸</div>
+            </div>
+            <div class="npc-lookbook-dialogue">
+              <div class="npc-lookbook-badge">✦ ÔNG BỤT GIÁM ĐỊNH</div>
+              <p id="npc-lookbook-text" class="npc-lookbook-text">
+                Đa tạ Tấm! Con vừa dệt nên một sinh thể mới. Dù là nguyên bản cổ kính hay cách tân rực rỡ, bản phối này giờ đây mang nhịp đập của thời đại mới và sẽ sống mãi trong dòng chảy văn hóa. Hãy mang Họa Đồ này chia sẻ cho nhân gian!
+              </p>
+            </div>
+          </div>
+
+          <!-- Glassmorphic Thước Đo Vận Mệnh Nhận Xét -->
+          <div class="ai-review-panel">
+            <div class="ai-review-header">
+              <span class="ai-review-badge">THƯỚC ĐO VẬN MỆNH</span>
+              <h4 class="ai-review-title">CHIÊM NGHIỆM DI SẢN</h4>
+            </div>
+            <p id="ai-review-text" class="ai-review-text">Đang phân tích sự giao thoa văn hóa...</p>
+          </div>
+
+          <!-- Export & Navigation Actions: LƯU HỌA ĐỒ & TRỞ VỀ HUYỄN CẢNH -->
+          <div class="result-actions">
+            <button id="btn-download-lookbook" class="btn-download-primary" title="Lưu Họa Đồ Ký Ức về máy kèm dấu ấn di sản">
+              [ 📥 LƯU HỌA ĐỒ ]
+            </button>
+            <button id="btn-save-to-wardrobe" class="btn-save-primary" title="Lưu cấu hình bản phối vào Bộ sưu tập cá nhân">
+              [ 💾 LƯU BỘ SƯU TẬP ]
+            </button>
+            <button id="btn-re-remix" class="btn-action-ghost" title="Quay trở lại Huyễn Cảnh Dệt Bóng">
+              [ ↺ TRỞ VỀ HUYỄN CẢNH ]
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: THE HERITAGE VAULT (KHÓA DI SẢN & KHẢO THÍ MỞ KHÓA - REQUIREMENT 4)
+       ======================================================================== -->
+  <div id="heritage-vault-modal" class="heritage-vault-modal hidden" role="dialog" aria-modal="true" aria-labelledby="vault-item-title">
+    <div class="vault-dialog">
+      <!-- Neon Fireworks / Confetti Canvas -->
+      <canvas id="vault-confetti-canvas" class="vault-confetti-canvas"></canvas>
+
+      <!-- Close Button -->
+      <button type="button" id="btn-close-vault" class="vault-close-btn" title="Đóng">✕</button>
+
+      <!-- Step 1: Kiến thức Lịch sử & Điển chế -->
+      <div id="vault-step-lore" class="vault-step-content active">
+        <div class="vault-header-kicker">
+          <span class="vault-lock-icon">🔒</span>
+          <span class="vault-badge-text">BẢO VẬT HOÀNG GIA ĐANG BỊ KHÓA</span>
+        </div>
+
+        <div class="vault-preview-card">
+          <div class="vault-img-box">
+            <img id="vault-item-img" src="assets/images/items/male_ao_ngu_than.PNG" alt="Áo Ngũ Thân" class="vault-artifact-img">
+          </div>
+          <div class="vault-info-box">
+            <span class="vault-era-tag" id="vault-item-era">Triều Nguyễn (1802-1945)</span>
+            <h3 class="vault-title" id="vault-item-title">Áo Ngũ Thân</h3>
+            <p class="vault-lock-reason" id="vault-item-reason">Trang phục truyền thống đang chờ được mở khóa.</p>
+          </div>
+        </div>
+
+        <div class="vault-lore-body">
+          <h4 class="vault-lore-heading">TƯ LIỆU LỊCH SỬ &amp; ĐIỂN CHẾ:</h4>
+          <p class="vault-lore-text" id="vault-item-lore">
+            Áo Ngũ Thân là trang phục truyền thống mẫu mực của nam giới thời Nguyễn, định hình từ năm 1744. Cấu trúc gồm năm thân vải tượng trưng cho tứ thân phụ mẫu và bản thân người mặc, kết hợp năm chiếc cúc cài đại diện cho Ngũ thường (Nhân - Lễ - Nghĩa - Trí - Tín).
+          </p>
+          <div class="vault-cultural-quote">
+            <span class="quote-mark">“</span>
+            <p id="vault-item-quote">Mỗi nếp gấm, đường thêu là sự kết tinh của tư tưởng triết học phương Đông và đỉnh cao mỹ nghệ Đại Việt.</p>
+          </div>
+        </div>
+
+        <div class="vault-footer-actions">
+          <button type="button" class="btn-vault-primary" id="btn-vault-start-quiz">
+            📜 THAM GIA KHẢO THÍ ĐỂ MỞ KHÓA BẢO VẬT ▶
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Khảo thí Trắc nghiệm Di sản -->
+      <div id="vault-step-quiz" class="vault-step-content hidden">
+        <div class="vault-header-kicker">
+          <span class="vault-quiz-icon">⚔️</span>
+          <span class="vault-badge-text">KHẢO THÍ ĐIỂN CHẾ DI SẢN ĐẠI VIỆT</span>
+        </div>
+
+        <div class="vault-quiz-container">
+          <div class="vault-question-box">
+            <span class="quiz-question-number" id="vault-quiz-number">CÂU HỎI KHẢO THÍ:</span>
+            <h3 class="quiz-question-title" id="vault-quiz-question">Đang tải câu hỏi khảo thí...</h3>
+          </div>
+
+          <!-- 4 Multiple Choice Options (A, B, C, D) -->
+          <div class="vault-options-grid" id="vault-quiz-options">
+            <!-- Injected by js/ui.js -->
+          </div>
+
+          <!-- Alert / Feedback Notification -->
+          <div id="vault-quiz-feedback" class="vault-quiz-feedback hidden">
+            <span class="feedback-icon" id="vault-feedback-icon">⚠️</span>
+            <span class="feedback-text" id="vault-feedback-text">Thông báo phản hồi</span>
+          </div>
+        </div>
+
+        <div class="vault-quiz-actions">
+          <button type="button" class="btn-vault-ghost" id="btn-vault-back-lore">◀ ĐỌC LẠI TƯ LIỆU</button>
+          <button type="button" class="btn-vault-reload" id="btn-vault-change-question">↺ ĐỔI CÂU HỎI KHÁC</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Success Celebration -->
+      <div id="vault-step-success" class="vault-step-content hidden">
+        <div class="vault-success-center">
+          <div class="vault-success-badge">✨ PHÁ GIẢI PHONG ẤN THÀNH CÔNG ✨</div>
+          <h3 class="vault-success-title" id="vault-success-item-name">ÁO NHẬT BÌNH HOÀNG GIA</h3>
+          <p class="vault-success-desc">
+            Bạn đã xuất sắc vượt qua khảo thí điển chế! Bảo vật đã được mở khóa vĩnh viễn cho tài khoản của bạn và sẵn sàng trong Tủ đồ.
+          </p>
+          <button type="button" class="btn-vault-primary" id="btn-vault-equip-now">
+            👘 MẶC NGAY LÊN MA-NƠ-CANH ▶
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: LƯU VÀO BỘ SƯU TẬP (SAVE TO WARDROBE DIALOG)
+       ======================================================================== -->
+  <div id="save-outfit-modal" class="app-sub-modal hidden" role="dialog" aria-modal="true">
+    <div class="app-sub-dialog">
+      <div class="sub-dialog-header">
+        <h3 class="sub-dialog-title">💾 LƯU BẢN PHỐI VÀO BỘ SƯU TẬP</h3>
+        <button type="button" class="sub-dialog-close" id="btn-close-save-dialog">✕</button>
+      </div>
+      <div class="sub-dialog-body">
+        <p class="sub-dialog-lead">Đặt tên để dễ dàng tìm kiếm và mở lại chỉnh sửa sau này:</p>
+        <div class="dialog-field-group">
+          <label for="save-outfit-name-input" class="dialog-label">TÊN BẢN PHỐI:</label>
+          <input type="text" id="save-outfit-name-input" class="dialog-input" placeholder="Ví dụ: Áo Tấc Dạ Tiệc Hoàng Gia #01">
+        </div>
+        <div class="dialog-outfit-summary" id="dialog-save-summary">
+          <!-- Summary of current items -->
+        </div>
+      </div>
+      <div class="sub-dialog-actions">
+        <button type="button" class="btn-dialog-ghost" id="btn-cancel-save-outfit">HỦY BỎ</button>
+        <button type="button" class="btn-dialog-primary" id="btn-confirm-save-outfit">✓ XÁC NHẬN LƯU</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: CHIA SẺ LÊN SÀN GIAO LƯU (SHARE TO NEXUS FEED DIALOG)
+       ======================================================================== -->
+  <div id="share-nexus-modal" class="app-sub-modal hidden" role="dialog" aria-modal="true">
+    <div class="app-sub-dialog">
+      <div class="sub-dialog-header">
+        <h3 class="sub-dialog-title">🌐 XUẤT BẢN LÊN SÀN GIAO LƯU THẾ GIỚI</h3>
+        <button type="button" class="sub-dialog-close" id="btn-close-share-dialog">✕</button>
+      </div>
+      <div class="sub-dialog-body">
+        <p class="sub-dialog-lead">Chia sẻ cảm hứng phối đồ của bạn để cộng đồng cùng chiêm ngưỡng và REMIX:</p>
+        <div class="dialog-field-group">
+          <label for="share-caption-input" class="dialog-label">LỜI BÌNH / CẢM HỨNG VĂN HÓA:</label>
+          <textarea id="share-caption-input" class="dialog-textarea" rows="3" placeholder="Chia sẻ câu chuyện hoặc triết lý giao thoa của bản phối này..."></textarea>
+        </div>
+      </div>
+      <div class="sub-dialog-actions">
+        <button type="button" class="btn-dialog-ghost" id="btn-cancel-share-nexus">HỦY BỎ</button>
+        <button type="button" class="btn-dialog-primary" id="btn-confirm-share-nexus">🚀 ĐĂNG BÀI NGAY</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Hub -->
+  <div id="app-toast-container" class="app-toast-container" aria-live="polite"></div>
+
+  <!-- Dữ liệu Tài khoản, Tủ đồ, Quy tắc & Khảo thí Di sản & Nexus Feed (Offline 100%) -->
+  <script src="data/users.js?v=2003"></script>
+  <script src="data/items.js?v=2006"></script>
+  <script src="data/rules.js?v=2004"></script>
+  <script src="data/quiz.js?v=2003"></script>
+  <script src="data/feed.js?v=2003"></script>
+
+  <!-- Logic Ứng dụng (Vanilla JS Thuần) -->
+  <script src="js/validation.js?v=2004"></script>
+  <script src="js/api.js?v=2003"></script>
+  <script src="js/ui.js?v=2021"></script>
+  <script src="js/main.js?v=2002"></script>
+</body>
+</html>

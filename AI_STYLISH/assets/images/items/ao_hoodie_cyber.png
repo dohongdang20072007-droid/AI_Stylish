@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800" width="400" height="800">
+    <path d="M165 125 Q200 110 235 125 Q245 160 200 170 Q155 160 165 125 Z" fill="#27272a" stroke="#00f0ff" stroke-width="1" />
+    <path d="M130 155 L165 135 L235 135 L270 155 L268 385 L132 385 Z" fill="#18181b" stroke="#3f3f46" stroke-width="1.5" />
+    <path d="M155 290 L245 290 L235 365 L165 365 Z" fill="#27272a" stroke="#00f0ff" stroke-width="1" />
+    <path d="M200 210 L185 245 L200 240 L215 245 Z" fill="#00f0ff" />
+    <line x1="175" y1="250" x2="225" y2="250" stroke="#ff007f" stroke-width="2" />
+    <path d="M130 155 Q100 230 95 340 L125 340 Q130 250 145 180 Z" fill="#18181b" />
+    <path d="M270 155 Q300 230 305 340 L275 340 Q270 250 255 180 Z" fill="#18181b" />
+  </svg>

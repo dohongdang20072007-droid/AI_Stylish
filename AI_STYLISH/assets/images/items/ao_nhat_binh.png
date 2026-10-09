@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800" width="400" height="800">
+    <path d="M140 152 L185 140 L215 140 L260 152 L275 360 L282 590 L118 590 L125 360 Z" fill="#b91c1c" />
+    <path d="M175 140 L225 140 L225 380 L175 380 Z" fill="#ffd700" stroke="#78350f" stroke-width="2" />
+    <circle cx="200" cy="220" r="16" fill="#dc2626" stroke="#ffffff" stroke-width="2" />
+    <path d="M190 220 Q200 205 210 220 Q200 235 190 220 Z" fill="#ffd700" />
+    <line x1="182" y1="140" x2="182" y2="380" stroke="#2563eb" stroke-width="2" />
+    <line x1="190" y1="140" x2="190" y2="380" stroke="#16a34a" stroke-width="2" />
+    <line x1="210" y1="140" x2="210" y2="380" stroke="#16a34a" stroke-width="2" />
+    <line x1="218" y1="140" x2="218" y2="380" stroke="#2563eb" stroke-width="2" />
+    <path d="M140 152 Q120 220 100 320 L135 320 Q145 230 155 180 Z" fill="#b91c1c" />
+    <g transform="translate(95, 320)">
+      <rect x="0" y="0" width="40" height="12" fill="#2563eb" />
+      <rect x="0" y="12" width="40" height="12" fill="#facc15" />
+      <rect x="0" y="24" width="40" height="12" fill="#ffffff" />
+      <rect x="0" y="36" width="40" height="12" fill="#dc2626" />
+      <rect x="0" y="48" width="40" height="12" fill="#16a34a" />
+    </g>
+    <path d="M260 152 Q280 220 300 320 L265 320 Q255 230 245 180 Z" fill="#b91c1c" />
+    <g transform="translate(265, 320)">
+      <rect x="0" y="0" width="40" height="12" fill="#2563eb" />
+      <rect x="0" y="12" width="40" height="12" fill="#facc15" />
+      <rect x="0" y="24" width="40" height="12" fill="#ffffff" />
+      <rect x="0" y="36" width="40" height="12" fill="#dc2626" />
+      <rect x="0" y="48" width="40" height="12" fill="#16a34a" />
+    </g>
+    <line x1="118" y1="590" x2="282" y2="590" stroke="#ffd700" stroke-width="5" />
+  </svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="cyberSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#050714" />
+      <stop offset="60%" stop-color="#0b1736" />
+      <stop offset="100%" stop-color="#162c64" />
+    </linearGradient>
+    <linearGradient id="chromePillar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="50%" stop-color="#e2e8f0" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#cyberSky)" />
+  <line x1="200" y1="0" x2="200" y2="800" stroke="#00f0ff" stroke-width="1.5" opacity="0.4" />
+  <line x1="400" y1="0" x2="400" y2="800" stroke="#00f0ff" stroke-width="1.5" opacity="0.4" />
+  <line x1="800" y1="0" x2="800" y2="800" stroke="#00f0ff" stroke-width="1.5" opacity="0.4" />
+  <line x1="1000" y1="0" x2="1000" y2="800" stroke="#00f0ff" stroke-width="1.5" opacity="0.4" />
+  <polygon points="120,480 120,320 180,320 180,480" fill="#0f1d40" />
+  <polygon points="220,520 220,280 270,280 270,520" fill="#132450" />
+  <polygon points="840,510 840,290 890,290 890,510" fill="#132450" />
+  <polygon points="980,500 1020,310 1060,500" fill="none" stroke="#ff007f" stroke-width="2" opacity="0.6" />
+  <rect x="280" y="80" width="40" height="650" fill="url(#chromePillar)" transform="rotate(-6 300 400)" />
+  <rect x="330" y="100" width="10" height="610" fill="#ff007f" opacity="0.9" transform="rotate(-6 300 400)" />
+  <rect x="880" y="80" width="40" height="650" fill="url(#chromePillar)" transform="rotate(6 900 400)" />
+  <rect x="860" y="100" width="10" height="610" fill="#00f0ff" opacity="0.9" transform="rotate(6 900 400)" />
+  <rect x="480" y="240" width="240" height="280" rx="12" fill="#0a122a" stroke="#ff007f" stroke-width="2" opacity="0.9" />
+  <text x="600" y="370" fill="#00f0ff" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="bold" letter-spacing="4" text-anchor="middle">VIỆT NAM</text>
+  <text x="600" y="410" fill="#ff007f" font-family="'JetBrains Mono', monospace" font-size="16" letter-spacing="6" text-anchor="middle">2088 CYBER ATRIUM</text>
+  <rect x="0" y="600" width="1200" height="200" fill="#060c1d" opacity="0.95" />
+  <line x1="0" y1="600" x2="1200" y2="600" stroke="#00f0ff" stroke-width="3" opacity="0.7" />
+  <text x="600" y="780" fill="#00f0ff" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="8" text-anchor="middle" opacity="0.8">HANOI CYBER ATRIUM · GEN Z FUSION HUB</text>
+</svg>

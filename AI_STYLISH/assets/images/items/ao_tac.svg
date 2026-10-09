@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800" width="400" height="800">
+    <path d="M184 135 L216 135 L218 152 L182 152 Z" fill="#ffd700" stroke="#b8860b" stroke-width="1" />
+    <path d="M142 150 L184 135 L216 135 L258 150 L275 350 L285 580 L115 580 L125 350 Z" fill="#1e3a8a" />
+    <path d="M184 135 Q220 180 235 240 L235 580 L215 580 L215 240 Q205 180 184 135 Z" fill="rgba(255,215,0,0.15)" stroke="#ffd700" stroke-width="2" />
+    <circle cx="205" cy="155" r="3.5" fill="#ffd700" />
+    <circle cx="220" cy="180" r="3.5" fill="#ffd700" />
+    <circle cx="228" cy="210" r="3.5" fill="#ffd700" />
+    <circle cx="232" cy="245" r="3.5" fill="#ffd700" />
+    <circle cx="234" cy="285" r="3.5" fill="#ffd700" />
+    <path d="M142 150 Q110 210 85 290 Q70 380 65 480 L115 470 Q125 380 135 280 L145 180 Z" fill="#1e3a8a" stroke="#ffd700" stroke-width="1.5" />
+    <rect x="65" y="460" width="50" height="15" fill="#ffd700" />
+    <path d="M258 150 Q290 210 315 290 Q330 380 335 480 L285 470 Q275 380 265 280 L255 180 Z" fill="#1e3a8a" stroke="#ffd700" stroke-width="1.5" />
+    <rect x="285" y="460" width="50" height="15" fill="#ffd700" />
+    <line x1="115" y1="580" x2="285" y2="580" stroke="#ffd700" stroke-width="4" />
+  </svg>

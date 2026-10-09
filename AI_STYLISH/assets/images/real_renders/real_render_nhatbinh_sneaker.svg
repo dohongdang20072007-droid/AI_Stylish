@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 850" width="500" height="850">
+    <g>
+      <ellipse cx="250" cy="95" rx="36" ry="46" fill="#fbcfe8" />
+      <path d="M210 90 Q250 40 290 90 Q295 140 280 150 L220 150 Z" fill="#18181b" />
+      <circle cx="285" cy="85" r="5" fill="#ffd700" />
+      <path d="M175 160 L230 145 L270 145 L325 160 L345 420 L355 640 L145 640 L155 420 Z" fill="#dc2626" stroke="#991b1b" stroke-width="2" />
+      <rect x="220" y="145" width="60" height="240" fill="#ffd700" stroke="#92400e" stroke-width="2" />
+      <line x1="230" y1="145" x2="230" y2="385" stroke="#2563eb" stroke-width="3" />
+      <line x1="240" y1="145" x2="240" y2="385" stroke="#16a34a" stroke-width="3" />
+      <line x1="260" y1="145" x2="260" y2="385" stroke="#16a34a" stroke-width="3" />
+      <line x1="270" y1="145" x2="270" y2="385" stroke="#2563eb" stroke-width="3" />
+      <g transform="translate(130, 360)">
+        <rect x="0" y="0" width="45" height="10" fill="#2563eb" />
+        <rect x="0" y="10" width="45" height="10" fill="#facc15" />
+        <rect x="0" y="20" width="45" height="10" fill="#ffffff" />
+        <rect x="0" y="30" width="45" height="10" fill="#dc2626" />
+        <rect x="0" y="40" width="45" height="10" fill="#16a34a" />
+      </g>
+      <g transform="translate(325, 360)">
+        <rect x="0" y="0" width="45" height="10" fill="#2563eb" />
+        <rect x="0" y="10" width="45" height="10" fill="#facc15" />
+        <rect x="0" y="20" width="45" height="10" fill="#ffffff" />
+        <rect x="0" y="30" width="45" height="10" fill="#dc2626" />
+        <rect x="0" y="40" width="45" height="10" fill="#16a34a" />
+      </g>
+      <path d="M195 640 L305 640 L315 760 L260 760 L250 670 L240 760 L185 760 Z" fill="#f8fafc" opacity="0.9" />
+      <path d="M175 760 L220 760 L225 795 L160 795 Z" fill="#09090b" stroke="#00f0ff" stroke-width="3" />
+      <rect x="160" y="790" width="65" height="10" fill="#00f0ff" />
+      <path d="M280 760 L325 760 L340 795 L275 795 Z" fill="#09090b" stroke="#00f0ff" stroke-width="3" />
+      <rect x="275" y="790" width="65" height="10" fill="#00f0ff" />
+    </g>
+  </svg>

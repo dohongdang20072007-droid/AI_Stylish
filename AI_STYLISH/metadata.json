@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Remix Remix Remix Remix Remix Remix Remix Remix Remix Fusion Stylist AI",
+  "description": "Interactive virtual styling platform blending traditional Vietnamese attire with modern fashion using AI-driven outfit coordination and conflict detection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

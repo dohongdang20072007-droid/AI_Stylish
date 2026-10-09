@@ -1,0 +1,344 @@
+[
+  {
+    "id": "female_ao_ba_ba",
+    "name": "Áo Bà Ba",
+    "category": "ao",
+    "era": "Trang phục dân gian Nam Bộ",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_ba_ba.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_ba_ba.PNG"
+  },
+  {
+    "id": "female_ao_dai_truyen_thong",
+    "name": "Áo Dài Truyền Thống",
+    "category": "ao",
+    "era": "Trang phục truyền thống Việt Nam",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_dai_truyen_thong.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_dai_truyen_thong.PNG"
+  },
+  {
+    "id": "female_ao_tac_tay_thung",
+    "name": "Áo Tấc Tay Thụng",
+    "category": "ao",
+    "era": "Triều Nguyễn (1802-1945)",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_tac_tay_thung.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_tac_tay_thung.PNG"
+  },
+  {
+    "id": "female_ao_tu_than",
+    "name": "Áo Tứ Thân",
+    "category": "ao",
+    "era": "Dân gian Bắc Bộ",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_tu_than.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_tu_than.PNG"
+  },
+  {
+    "id": "female_ao_yem",
+    "name": "Áo Yếm",
+    "category": "ao",
+    "era": "Dân gian Việt Nam",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_yem.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_yem.PNG"
+  },
+  {
+    "id": "male_ao_ngu_than",
+    "name": "Áo Ngũ Thân",
+    "category": "ao",
+    "era": "Triều Nguyễn (1802-1945)",
+    "style": "traditional",
+    "gender": "nam",
+    "isLocked": true,
+    "lockReason": "Áo ngũ thân nam là trang phục truyền thống cần vượt qua khảo thí điển chế để mở khóa.",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_ao_ngu_than.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_ao_ngu_than.PNG"
+  },
+  {
+    "id": "male_ao_tac",
+    "name": "Áo Tấc",
+    "category": "ao",
+    "era": "Triều Nguyễn (1802-1945)",
+    "style": "traditional",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_ao_tac.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_ao_tac.PNG"
+  },
+  {
+    "id": "male_hoodie_cyber",
+    "name": "Hoodie Cyber",
+    "category": "ao",
+    "era": "Đương đại",
+    "style": "modern",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_hoodie_cyber.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_hoodie_cyber.PNG"
+  },
+  {
+    "id": "female_cargo_jean",
+    "name": "Quần Cargo Jean",
+    "category": "quan",
+    "era": "Đương đại",
+    "style": "modern",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_cargo_jean.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_cargo_jean.PNG"
+  },
+  {
+    "id": "female_quan_dai_den",
+    "name": "Quần Dài Đen",
+    "category": "quan",
+    "era": "Trang phục truyền thống Việt Nam",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_quan_dai_den.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_quan_dai_den.PNG"
+  },
+  {
+    "id": "female_quan_toc",
+    "name": "Khăn Quấn Tóc",
+    "category": "phukien",
+    "era": "Trang phục truyền thống Việt Nam",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_quan_toc.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_quan_toc.PNG"
+  },
+  {
+    "id": "female_vay_xep_ly",
+    "name": "Váy Xếp Ly",
+    "category": "quan",
+    "era": "Đương đại",
+    "style": "modern",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_vay_xep_ly.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_vay_xep_ly.PNG"
+  },
+  {
+    "id": "male_cargo_jean",
+    "name": "Quần Cargo Jean",
+    "category": "quan",
+    "era": "Đương đại",
+    "style": "modern",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_cargo_jean.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_cargo_jean.PNG"
+  },
+  {
+    "id": "male_quan_lua_trang",
+    "name": "Quần Lụa Trắng",
+    "category": "quan",
+    "era": "Trang phục truyền thống Việt Nam",
+    "style": "traditional",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_quan_lua_trang.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_quan_lua_trang.PNG"
+  },
+  {
+    "id": "male_kinh_ram",
+    "name": "Kính Râm",
+    "category": "phukien",
+    "era": "Đương đại",
+    "style": "modern",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_kinh_ram.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_kinh_ram.PNG"
+  },
+  {
+    "id": "female_dep_quai_thao",
+    "name": "Dép Quai Thảo",
+    "category": "giay",
+    "era": "Trang phục truyền thống Việt Nam",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_dep_quai_thao.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_dep_quai_thao.PNG"
+  },
+  {
+    "id": "female_giay_den",
+    "name": "Giày Đen",
+    "category": "giay",
+    "era": "Đương đại",
+    "style": "modern",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_giay_den.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_giay_den.PNG"
+  },
+  {
+    "id": "female_hai_theu",
+    "name": "Hài Thêu",
+    "category": "giay",
+    "era": "Trang phục truyền thống Việt Nam",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_hai_theu.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_hai_theu.PNG"
+  },
+  {
+    "id": "female_sneaker",
+    "name": "Sneaker",
+    "category": "giay",
+    "era": "Đương đại",
+    "style": "modern",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_sneaker.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_sneaker.PNG"
+  },
+  {
+    "id": "male_sneaker",
+    "name": "Sneaker",
+    "category": "giay",
+    "era": "Đương đại",
+    "style": "modern",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_sneaker.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_sneaker.PNG"
+  },
+  {
+    "id": "female_ao_cong_chua",
+    "name": "Áo Công Chúa",
+    "category": "ao",
+    "era": "Thiết kế phục trang cách điệu",
+    "style": "modern",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_cong_chua.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_cong_chua.PNG"
+  },
+  {
+    "id": "female_ao_croptop",
+    "name": "Áo Croptop",
+    "category": "ao",
+    "era": "Đương đại",
+    "style": "modern",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_croptop.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_ao_croptop.PNG"
+  },
+  {
+    "id": "female_khan_vanh_day",
+    "name": "Khăn Vành Dây",
+    "category": "phukien",
+    "era": "Phục trang truyền thống (theo tên mẫu)",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_khan_vanh_day.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_khan_vanh_day.PNG"
+  },
+  {
+    "id": "female_mu_luoi_trai",
+    "name": "Mũ Lưỡi Trai",
+    "category": "phukien",
+    "era": "Đương đại",
+    "style": "modern",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_mu_luoi_trai.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_mu_luoi_trai.PNG"
+  },
+  {
+    "id": "female_non_la",
+    "name": "Nón Lá",
+    "category": "phukien",
+    "era": "Phụ kiện truyền thống Việt Nam",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_non_la.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_non_la.PNG"
+  },
+  {
+    "id": "female_non_quai_thao",
+    "name": "Nón Quai Thao",
+    "category": "phukien",
+    "era": "Phụ kiện dân gian Bắc Bộ",
+    "style": "traditional",
+    "gender": "nu",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_non_quai_thao.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/female_non_quai_thao.PNG"
+  },
+  {
+    "id": "male_ao_linh_thoi_ly",
+    "name": "Áo Lính Thời Lý",
+    "category": "ao",
+    "era": "Phục trang mô phỏng thời Lý",
+    "style": "traditional",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_ao_linh_thoi_ly.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_ao_linh_thoi_ly.PNG"
+  },
+  {
+    "id": "male_ao_thoi_Tran",
+    "name": "Áo Thời Trần",
+    "category": "ao",
+    "era": "Phục trang mô phỏng thời Trần",
+    "style": "traditional",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_ao_thoi_Tran.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_ao_thoi_Tran.PNG"
+  },
+  {
+    "id": "male_ao_vua_nguyen",
+    "name": "Áo Vua Triều Nguyễn",
+    "category": "ao",
+    "era": "Phục trang mô phỏng triều Nguyễn",
+    "style": "traditional",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_ao_vua_nguyen.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_ao_vua_nguyen.PNG"
+  },
+  {
+    "id": "male_giay_linh_thoi_Ly",
+    "name": "Giày Lính Thời Lý",
+    "category": "giay",
+    "era": "Phục trang mô phỏng thời Lý",
+    "style": "traditional",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_giay_linh_thoi_Ly.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_giay_linh_thoi_Ly.PNG"
+  },
+  {
+    "id": "male_giay_vua_nguyen",
+    "name": "Giày Vua Triều Nguyễn",
+    "category": "giay",
+    "era": "Phục trang mô phỏng triều Nguyễn",
+    "style": "traditional",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_giay_vua_nguyen.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_giay_vua_nguyen.PNG"
+  },
+  {
+    "id": "male_mu_linh_thoi_Ly",
+    "name": "Mũ Lính Thời Lý",
+    "category": "phukien",
+    "era": "Phục trang mô phỏng thời Lý",
+    "style": "traditional",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_mu_linh_thoi_Ly.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_mu_linh_thoi_Ly.PNG"
+  },
+  {
+    "id": "male_mu_vua_nguyen",
+    "name": "Mũ Vua Triều Nguyễn",
+    "category": "phukien",
+    "era": "Phục trang mô phỏng triều Nguyễn",
+    "style": "traditional",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_mu_vua_nguyen.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_mu_vua_nguyen.PNG"
+  },
+  {
+    "id": "male_non_la",
+    "name": "Nón Lá",
+    "category": "phukien",
+    "era": "Phụ kiện truyền thống Việt Nam",
+    "style": "traditional",
+    "gender": "nam",
+    "image_url": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_non_la.PNG",
+    "thumbnail": "https://raw.githubusercontent.com/dohongdang20072007-droid/AI_Stylish/main/AI_STYLISH/AI_STYLISH/assets/images/items/male_non_la.PNG"
+  }
+]

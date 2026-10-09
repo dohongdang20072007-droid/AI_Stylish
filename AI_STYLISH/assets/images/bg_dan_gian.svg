@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14281f" />
+      <stop offset="50%" stop-color="#1f3d30" />
+      <stop offset="100%" stop-color="#3d5a45" />
+    </linearGradient>
+    <linearGradient id="waterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1c3a2e" />
+      <stop offset="100%" stop-color="#0a1a14" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#skyGrad)" />
+  <g transform="translate(480, 220)">
+    <path d="M60 220 L60 80 Q120 40 180 80 L180 220 Z" fill="#2c1a11" stroke="#a3e635" stroke-width="2" />
+    <path d="M40 80 Q120 20 200 80 L180 95 Q120 45 60 95 Z" fill="#78350f" />
+    <path d="M90 220 L90 140 Q120 120 150 140 L150 220 Z" fill="#0a1510" stroke="#4ade80" stroke-width="1.5" />
+  </g>
+  <path d="M0 0 Q220 150 180 800 L0 800 Z" fill="#1b120c" />
+  <path d="M80 0 Q280 280 140 800" stroke="#4ade80" stroke-width="3" fill="none" opacity="0.8" />
+  <path d="M120 0 Q320 320 220 800" stroke="#a3e635" stroke-width="2" fill="none" opacity="0.7" />
+  <ellipse cx="140" cy="120" rx="200" ry="140" fill="#132a1d" opacity="0.9" />
+  <ellipse cx="260" cy="90" rx="140" ry="100" fill="#1c3827" opacity="0.85" />
+  <rect x="0" y="520" width="1200" height="280" fill="url(#waterGrad)" />
+  <ellipse cx="750" cy="640" rx="90" ry="25" fill="#166534" opacity="0.7" />
+  <ellipse cx="900" cy="690" rx="110" ry="30" fill="#166534" opacity="0.8" />
+  <circle cx="880" cy="675" r="10" fill="#f472b6" />
+  <path d="M180 800 L500 520 L700 520 L620 800 Z" fill="#292015" />
+  <path d="M180 800 L500 520" stroke="#84cc16" stroke-width="3" stroke-dasharray="8,6" />
+  <path d="M620 800 L700 520" stroke="#84cc16" stroke-width="3" stroke-dasharray="8,6" />
+  <text x="600" y="780" fill="#a3e635" font-family="'Cinzel', serif, sans-serif" font-size="16" letter-spacing="8" text-anchor="middle" opacity="0.75">BẾN NƯỚC SÂN ĐÌNH · KINH BẮC</text>
+</svg>
